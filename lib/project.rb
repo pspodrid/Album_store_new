@@ -31,6 +31,10 @@ class Album
     @name = name
   end
 
+  def self.find(id)
+   @@albums[id]
+ end
+
 def delete
   @@albums.delete(self.id)
   end
