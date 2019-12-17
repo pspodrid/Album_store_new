@@ -27,9 +27,16 @@
   </div>
   <button type="submit" class="btn">Go!</button>
 </form>
+<br>
+<br>
+<form action="/albums">
+  <button type="submit" name="sorter" class="btn">Sort!</button>
+</form>
 
 
 <a href="/albums/new">Add a new album</a>
+<br>
+<br>
 
 <% @albums.each do |album| %>
     <li><a href="/albums/<%= album.id %>"><%= album.name %></a></li>

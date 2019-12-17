@@ -20,6 +20,8 @@ get('/albums') do
     # binding.pry
   elsif params[:searchName]
     @albums = Album.search(params[:searchName])
+  elsif params[:sorter]
+    @albums = Album.sorter
   else
     @albums = Album.all
   end
