@@ -32,10 +32,14 @@ class Album
   end
 
   def self.find(id)
-   @@albums[id]
- end
+    @@albums[id]
+  end
 
-def delete
-  @@albums.delete(self.id)
+  def delete
+    @@albums.delete(self.id)
+  end
+
+  def self.search(name)
+    @@albums.values.select { |album| album.name == name }
   end
 end

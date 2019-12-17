@@ -60,4 +60,22 @@ describe('.clear') do
       expect(album).to(eq(album2))
     end
   end
+
+  describe('.find') do
+      it("finds an album by id") do
+        album = Album.new("Giant Steps", nil)
+        album.save()
+        album2 = Album.new("Blue", nil)
+        album2.save()
+        expect(Album.find(album.id)).to(eq(album))
+      end
+    end
+
+  describe('.search') do
+    it("finds the album by name") do
+      album = Album.new("Blue", nil)
+      album.save()
+      expect(Album.search(album.name)).to(eq([album]))
+    end
+  end
 end
