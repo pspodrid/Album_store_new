@@ -10,7 +10,7 @@ class Album
   end
 
   def self.all
-    @@albums.values()
+    @@albums.values.sort_by {|album| album.name}
   end
 
   def save
@@ -41,10 +41,6 @@ class Album
 
   def self.search(name)
     @@albums.values.select { |album| album.name == name }
-  end
-
-  def self.sort
-    @@albums.values.sort_by {|album| album.name}
   end
 
 end

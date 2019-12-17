@@ -8,12 +8,12 @@ describe '#Album' do
   end
 
   describe("#save") do
-    it('saves an album')do
+    it('saves an album in alphabetical order')do
     album = Album.new("Giant Steps", nil) # nil added as second argument
     album.save()
     album2 = Album.new("Blue", nil) # nil added as second argument
     album2.save()
-    expect(Album.all).to(eq([album, album2]))
+    expect(Album.all).to(eq([album2, album]))
   end
 end
   describe ('.all') do
@@ -79,16 +79,5 @@ describe('.clear') do
     end
   end
 
-  describe('.sort') do
-    it("sorts the albums by name") do
-      album = Album.new("Giant Steps", nil)
-      album.save()
-      album2 = Album.new("Blue", nil)
-      album2.save()
-      album3 = Album.new("Anthemy", nil)
-      album3.save()
-      expect(Album.sort).to(eq([album3, album2, album]))
-    end
-  end
 
 end
