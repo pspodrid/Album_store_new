@@ -3,8 +3,14 @@
 <form action="/albums/<%= @album.id() %>" method="post">
   <input name="_method" type="hidden" value="patch">
 
-  <label for="name">Rename album</label>
-  <input id="name" name="name" type="text">
+  <label for="album_name">Rename album</label>
+  <input id="album_name" name="album_name" type="text">
+
+  <label for="year">Reenter year</label>
+  <input id="year" name="year" type="text">
+
+  <label for="artist_name">Reenter artist</label>
+  <input id="artist_name" name="artist_name" type="text">
 
   <button type="submit">Update</button>
 </form>

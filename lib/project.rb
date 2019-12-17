@@ -29,9 +29,15 @@ class Album
     @@total_rows = 0
   end
 
-  def update(name)
+  def update_name(name)
     @name = name
+  end
+
+  def update_year(year)
     @year = year
+  end
+
+  def update_artist(artist)
     @artist = artist
   end
 
