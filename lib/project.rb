@@ -42,4 +42,9 @@ class Album
   def self.search(name)
     @@albums.values.select { |album| album.name == name }
   end
+
+  # def self.sort
+  #   @@albums.values.sort_by {|name, id| name}
+  # end
+
 end

@@ -15,7 +15,14 @@ get('/') do
 end
 
 get('/albums') do
-  @albums = Album.all
+  if params[:searchID]
+    @albums = [Album.find(params[:searchID].to_i())]
+    # binding.pry
+  elsif params[:searchName]
+    @albums = Album.search(params[:searchName])
+  else
+    @albums = Album.all
+  end
   erb(:albums)
 end
 
@@ -23,10 +30,15 @@ get('/albums/new') do
   erb(:new_album)
 end
 
-get('/albums/:id') do
-  @album = Album.find(params[:id].to_i())
-  erb(:album)
-end
+# get('/albums/:id') do
+#   @album = Album.find(params[:id].to_i())
+#   erb(:album)
+# end
+#
+# get('/albums/:name') do
+#   @album = Album.search(params[:search])
+#   erb(:album)
+# end
 
 get('/albums/:id/edit') do
   @album = Album.find(params[:id].to_i())
@@ -61,4 +73,8 @@ end
 
 get('/custom_route') do
   "We can even create custom routes, but we should only do this when needed."
+end
+
+get('/albums/:id/edit') do
+  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
 end

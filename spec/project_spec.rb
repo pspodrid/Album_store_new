@@ -78,4 +78,17 @@ describe('.clear') do
       expect(Album.search(album.name)).to(eq([album]))
     end
   end
+  # 
+  # describe('.sort') do
+  #   it("sorts the albums by name") do
+  #     album = Album.new("Giant Steps", nil)
+  #     album.save()
+  #     album2 = Album.new("Blue", nil)
+  #     album2.save()
+  #     album3 = Album.new("Anthemy", nil)
+  #     album3.save()
+  #     expect(Album.sort).to(eq([album3, album2, album]))
+  #   end
+  # end
+
 end
