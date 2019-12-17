@@ -5,7 +5,7 @@ class Album
   @@total_rows = 0
 
   def initialize(name, id)
-    @name = name
+    @name = name.capitalize
     @id = id || @@total_rows += 1
   end
 
