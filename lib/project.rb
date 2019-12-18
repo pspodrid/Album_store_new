@@ -23,7 +23,6 @@ class Album
     self.name() == album_to_compare.name()
   end
 
-
   def self.clear
     @@albums = {}
     @@total_rows = 0

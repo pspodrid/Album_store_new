@@ -33,11 +33,11 @@ describe('.clear') do
     end
   end
 
-  describe('#update') do
-    it("updates an album by id") do
+  describe('#update_name') do
+    it("updates an album's name by id") do
       album = Album.new("Giant Steps", nil, "1989", "Fred")
       album.save()
-      album.update("A Love Supreme")
+      album.update_name("A Love Supreme")
       expect(album.name).to(eq("A Love Supreme"))
     end
   end
