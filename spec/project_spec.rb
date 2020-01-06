@@ -81,11 +81,11 @@ describe('.clear') do
 
   describe('#songs') do
       it("returns an album's songs") do
-        album = Album.new(:name =>"Giant Steps", :id => 2)
+        album = Album.new(:name =>"Giant Steps", :id => nil)
         album.save()
-        song = Song.new(:name =>"Naima", :id => 2, :album_id => 2)
+        song = Song.new(:name =>"Naima", :id => 2, :album_id => 1)
         song.save()
-        song2 = Song.new(:name =>"Naima", :id => 3, :album_id => 2)
+        song2 = Song.new(:name =>"SingSong Song", :id => 3, :album_id => 1)
         song2.save()
         expect(album.songs).to(eq([song, song2]))
       end

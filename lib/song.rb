@@ -61,8 +61,8 @@ class Song
 
   def self.find_by_album(alb_id)
     songs = []
-    returned_songs = DB.exec("SELECT * FROM songs WHERE album_id = #{alb_id}")
-    # binding.prey
+    returned_songs = DB.exec("SELECT * FROM songs;")
+    binding.pry
     returned_songs.each() do |song|
       name = song.fetch("name")
       id = song.fetch("id").to_i
@@ -70,6 +70,7 @@ class Song
     end
     songs
   end
+
 
   def album
     Album.find(@album_id)
