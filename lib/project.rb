@@ -23,7 +23,7 @@ class Album
   end
 
   def ==(album_to_compare)
-    self.name() == album_to_compare.name()
+    self.name == album_to_compare.name()
   end
 
   def self.clear
@@ -45,8 +45,8 @@ class Album
 
   def self.find(id)
     album = DB.exec("SELECT * FROM albums WHERE id = #{id};").first
-    name = album.fetch('name')
-    id = album.fetch('id').to_i
+    name = album.fetch("name")
+    id = album.fetch("id").to_i
     Album.new({:name => name, :id => id})
   end
 

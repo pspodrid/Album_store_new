@@ -26,6 +26,7 @@ class Song
       id = song.fetch("id").to_i
       songs.push(Song.new({:name => name, :album_id => album_id, :id => id}))
     end
+    songs
   end
 
   def save
@@ -45,9 +46,9 @@ class Song
     end
   end
 
-  def update(name, album_id)
-    @name = name
-    @album_id = album_id
+  def update(attributes)
+    @name = attributes.fetch(:name)
+    @album_id = attributes.fetch(:album_id)
     DB.exec("UPDATE songs SET name = '#{@name}', album_id = #{@album_id} WHERE id = #{@id};")
   end
 
@@ -61,11 +62,10 @@ class Song
 
   def self.find_by_album(alb_id)
     songs = []
-    returned_songs = DB.exec("SELECT * FROM songs;")
-    binding.pry
+    returned_songs = DB.exec("SELECT * FROM songs WHERE album_id = #{alb_id};")
     returned_songs.each() do |song|
-      name = song.fetch("name")
-      id = song.fetch("id").to_i
+      name = song.fetch('name')
+      id = song.fetch('id').to_i
       songs.push(Song.new({:name => name, :album_id => alb_id, :id => id}))
     end
     songs
