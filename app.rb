@@ -4,11 +4,9 @@ require('./lib/project')
 require('pry')
 also_reload('lib/**/*.rb')
 require('./lib/song')
+require('pg')
 
-get('/test/') do
-   @something = "this is a variable"
-  erb(:whatever)
-end
+DB = PG.connect ({:dbname => 'record_store'})
 
 get('/') do
   @albums = Album.all
@@ -53,9 +51,6 @@ get('/albums/:id') do
   erb(:album)
 end
 
-get('/albums/:id/edit') do
-  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
-end
 
 patch('/albums/:id') do
   @album = Album.find(params[:id].to_i())
@@ -79,13 +74,6 @@ delete('/albums/:id') do
   erb(:albums)
 end
 
-get('/custom_route') do
-  "We can even create custom routes, but we should only do this when needed."
-end
-
-get('/albums/:id/edit') do
-  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
-end
 
 # Get the detail for a specific song such as lyrics and songwriters.
 get('/albums/:id/songs/:song_id') do
@@ -115,4 +103,21 @@ delete('/albums/:id/songs/:song_id') do
   song.delete
   @album = Album.find(params[:id].to_i())
   erb(:album)
+end
+
+get('/test/') do
+  @something = "this is a variable"
+  erb(:whatever)
+end
+
+get('/albums/:id/edit') do
+  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
+end
+
+get('/custom_route') do
+  "We can even create custom routes, but we should only do this when needed."
+end
+
+get('/albums/:id/edit') do
+  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
 end
