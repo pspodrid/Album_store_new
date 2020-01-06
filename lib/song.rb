@@ -3,7 +3,7 @@ class Song
   attr_accessor :name, :album_id
 
 
-  def initialize(name, album_id, id)
+  def initialize(attributes)
     @name = attributes.fetch(:name)
     @album_id = attributes.fetch(:album_id)
     @id = attributes.fetch(:id)
@@ -62,9 +62,10 @@ class Song
   def self.find_by_album(alb_id)
     songs = []
     returned_songs = DB.exec("SELECT * FROM songs WHERE album_id = #{alb_id}")
+    # binding.prey
     returned_songs.each() do |song|
       name = song.fetch("name")
-      id = song.fecth("id").to_i
+      id = song.fetch("id").to_i
       songs.push(Song.new({:name => name, :album_id => alb_id, :id => id}))
     end
     songs

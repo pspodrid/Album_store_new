@@ -1,8 +1,5 @@
 class Album
-  attr_accessor :name
-
-
-
+  attr_accessor :name, :id
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
@@ -47,7 +44,7 @@ class Album
   end
 
   def self.find(id)
-    album = DB.exec('SELECT * FROM albums WHERE id = #{id};').first
+    album = DB.exec("SELECT * FROM albums WHERE id = #{id};").first
     name = album.fetch('name')
     id = album.fetch('id').to_i
     Album.new({:name => name, :id => id})
@@ -59,7 +56,8 @@ class Album
   end
 
   def self.search(name)
-    @@albums.values.select { |album| album.name == name }
+
+    album = DB.exec("SELECT * FROM albums WHERE name = #{name};").first
   end
 
   def self.sorter
