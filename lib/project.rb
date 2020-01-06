@@ -6,7 +6,7 @@ class Album
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
-    @id = attributes.fetch(:id)
+    @id = attributes.fetch(:id).to_i
   end
 
   def self.all
@@ -55,6 +55,7 @@ class Album
 
   def delete
     DB.exec("DELETE FROM albums WHERE id = #{@id};")
+    DB.exec("DELETE FROM songs WHERE album_id = #{@id};")
   end
 
   def self.search(name)

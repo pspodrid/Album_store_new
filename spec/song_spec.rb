@@ -4,7 +4,7 @@ require ('project')
 
 
 # describe '#Song' do
-#
+# #
 #   describe('#==') do
 #     it("is the same song if it has the same attributes as another song") do
 #       song = Song.new("Naima", @album.id, nil)
@@ -12,7 +12,7 @@ require ('project')
 #       expect(song).to(eq(song2))
 #     end
 #   end
-#
+# #
 #   describe('.all') do
 #     it("returns a list of all songs") do
 #       song = Song.new("Giant Steps", @album.id, nil)
@@ -61,16 +61,16 @@ require ('project')
 #     end
 #   end
 #
-#   describe('#delete') do
-#     it("deletes an song by id") do
-#       song = Song.new("Giant Steps", @album.id, nil)
-#       song.save()
-#       song2 = Song.new("Naima", @album.id, nil)
-#       song2.save()
-#       song.delete()
-#       expect(Song.all).to(eq([song2]))
-#     end
-#   end
+  describe('#delete') do
+    it("deletes all songs belonging to a deleted album") do
+      album = Album.new({:name => "A Love Supreme", :id => nil})
+      album.save()
+      song = Song.new({:name => "Naima", :album_id => album.id, :id => nil})
+      song.save()
+      album.delete()
+      expect(Song.find(song.id)).to(eq(nil))
+    end
+  end
 #
 #   describe('.find_by_album') do
 #     it("finds songs for an album") do
