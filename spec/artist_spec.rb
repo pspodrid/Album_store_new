@@ -1,53 +1,54 @@
 require('spec_helper')
 require('project')
+require('artist')
 require('song')
 
-describe '#Album' do
+describe '#Artist' do
 
   describe("#save") do
-    it('saves an album in alphabetical order')do
-      album = Album.new(:name =>"Giant Steps", :id => 2)
-      album.save()
-      album2 = Album.new(:name =>"Blue", :id => 1)
-      album2.save()
-      expect(Album.all).to(eq([album, album2]))
+    it('saves an artist')do
+      artist = Artist.new(:name =>"Beyonce", :id => 2)
+      artist.save()
+      artist2 = Artist.new(:name =>"Alannis", :id => 1)
+      artist2.save()
+      expect(Artist.all).to(eq([artist, artist2]))
     end
   end
 
   describe ('.all') do
     it("is empty")do
-    expect(Album.all()).to(eq([]))
+    expect(Artist.all()).to(eq([]))
   end
 end
 
 describe('.clear') do
-    it("clears all albums") do
-      album = Album.new(:name =>"Giant Steps", :id => 2)
-      album.save()
-      album2 = Album.new(:name =>"Blue", :id => 1)
-      album2.save()
-      Album.clear()
-      expect(Album.all).to(eq([]))
+    it("clears all artists") do
+      artist = Artist.new(:name =>"Beyonce", :id => 2)
+      artist.save()
+      artist2 = Artist.new(:name =>"Alannis", :id => 1)
+      artist2.save()
+      Artist.clear()
+      expect(Artist.all).to(eq([]))
     end
   end
 
   describe('#update_name') do
-    it("updates an album's name by id") do
-      album = Album.new(:name =>"Giant Steps", :id => 2)
-      album.save()
-      album.update_name("A Love Supreme")
-      expect(album.name).to(eq("A Love Supreme"))
+    it("updates an artists's name by id") do
+      artist = Artist.new(:name =>"Beyonce", :id => 2)
+      artist.save()
+      artist.update_name("Madonna")
+      expect(artist.name).to(eq("Madonna"))
     end
   end
 
   describe('#delete') do
-      it("deletes an album by id") do
-        album = Album.new(:name =>"Giant Steps", :id => 2)
-        album.save()
-        album2 = Album.new(:name =>"Blue", :id => 1)
-        album2.save()
-        album.delete()
-        expect(Album.all).to(eq([album2]))
+      it("deletes an artist by id") do
+        artist = Artist.new(:name =>"Beyonce", :id => 2)
+        artist.save()
+        artist2 = Artist.new(:name =>"Alannis", :id => 1)
+        artist2.save()
+        artist.delete()
+        expect(Artist.all).to(eq([artist2]))
       end
     end
 
@@ -58,7 +59,7 @@ describe('.clear') do
       expect(album).to(eq(album2))
     end
   end
-#
+
   describe('.find') do
       it("finds an album by id") do
         album = Album.new(:name =>"Giant Steps", :id => 2)
@@ -81,11 +82,11 @@ describe('.clear') do
 
   describe('#songs') do
       it("returns an album's songs") do
-        album = Album.new({:name =>"Giant Steps", :id => nil})
+        album = Album.new(:name =>"Giant Steps", :id => nil)
         album.save()
-        song = Song.new({:name =>"Naima", :id => 2, :album_id => 1, :artist_id => 2})
+        song = Song.new(:name =>"Naima", :id => 2, :album_id => 1, :artist_id => 2)
         song.save()
-        song2 = Song.new({:name =>"SingSong Song", :id => 3, :album_id => 1, :artist_id => 2})
+        song2 = Song.new(:name =>"SingSong Song", :id => 3, :album_id => 1, :artist_id => 2)
         song2.save()
         expect(album.songs).to(eq([song, song2]))
       end

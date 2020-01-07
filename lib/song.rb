@@ -1,12 +1,13 @@
 class Song
   attr_reader :id
-  attr_accessor :name, :album_id
+  attr_accessor :name, :album_id, :artist_id
 
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
-    @album_id = attributes.fetch(:album_id)
-    @id = attributes.fetch(:id)
+    @album_id = attributes.fetch(:album_id).to_i
+    @id = attributes.fetch(:id).to_i
+    @artist_id = attributes.fetch(:artist_id).to_i
   end
 
   def ==(song_to_compare)
@@ -24,13 +25,14 @@ class Song
       name = song.fetch("name")
       album_id = song.fetch("album_id").to_i
       id = song.fetch("id").to_i
-      songs.push(Song.new({:name => name, :album_id => album_id, :id => id}))
+      artist_id = song.fetch("artist_id").to_i
+      songs.push(Song.new({:name => name, :album_id => album_id, :id => id, :artist_id => artist_id}))
     end
     songs
   end
 
   def save
-    result = DB.exec("INSERT INTO songs (name, album_id) VALUES ('#{@name}', #{@album_id}) RETURNING id;")
+    result = DB.exec("INSERT INTO songs (name, album_id, artist_id) VALUES ('#{@name}', #{@album_id}, #{@artist_id}) RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
 
@@ -40,7 +42,8 @@ class Song
       name = song.fetch("name")
       album_id = song.fetch("album_id").to_i
       id = song.fetch("id").to_i
-      Song.new({:name => name, :album_id => album_id, :id => id})
+      artist_id = song.fetch("artist_id").to_i
+      Song.new({:name => name, :album_id => album_id, :id => id, :artist_id => artist_id})
     else
       nil
     end
@@ -60,13 +63,25 @@ class Song
     DB.exec("DELETE FROM songs *;")
   end
 
+  def self.find_by_artist(artist_id)
+    songs = []
+    returned_songs = DB.exec("SELECT * FROM songs WHERE artist_id = #{artist_id};")
+    returned_songs.each() do |song|
+      name = song.fetch('name')
+      id = song.fetch('id').to_i
+      songs.push(Song.new({:name => name, :artist_id => artist_id, :id => id}))
+    end
+    songs
+  end
+
   def self.find_by_album(alb_id)
     songs = []
     returned_songs = DB.exec("SELECT * FROM songs WHERE album_id = #{alb_id};")
     returned_songs.each() do |song|
       name = song.fetch('name')
       id = song.fetch('id').to_i
-      songs.push(Song.new({:name => name, :album_id => alb_id, :id => id}))
+      artist_id = song.fetch('artist_id').to_i
+      songs.push(Song.new({:name => name, :album_id => alb_id, :id => id, :artist_id => artist_id}))
     end
     songs
   end
