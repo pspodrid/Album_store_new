@@ -105,19 +105,37 @@ delete('/albums/:id/songs/:song_id') do
   erb(:album)
 end
 
-get('/test/') do
-  @something = "this is a variable"
-  erb(:whatever)
+get('/artists') do
+erb(:artists)
 end
 
-get('/albums/:id/edit') do
-  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
+get('artists/:id') do
+  erb(:artist)
 end
 
-get('/custom_route') do
-  "We can even create custom routes, but we should only do this when needed."
+post('/artists') do
+  name = params[:artist_name]
+  artist = Artist.new(name, nil)
+  artist.save()
+  @artist = Artist.all()
+  erb(:artists)
 end
 
-get('/albums/:id/edit') do
-  "This will take us to a page with a form for updating an album with an ID of #{params[:id]}."
+patch('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.update(params[:name])
+  @artists = Artist.all
+  erb(:artists)
+end
+
+delete('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.delete()
+  @artists = Artist.all
+  erb(:artists)
+end
+
+get('/index') do
+  @artist = Artist.all
+  @albums = Album.all
 end
