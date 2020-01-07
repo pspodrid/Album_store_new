@@ -40,16 +40,28 @@ describe('.clear') do
     end
   end
 
-  describe('#delete') do
-      it("deletes an album by id") do
-        album = Album.new(:name =>"Giant Steps", :id => nil)
-        album.save()
-        album2 = Album.new(:name =>"Blue", :id => nil)
-        album2.save()
-        album.delete()
-        expect(Album.all).to(eq([album2]))
-      end
-    end
+  # describe('#delete') do
+  #     it("deletes an album by id") do
+  #       album = Album.new(:name =>"Giant Steps", :id => nil)
+  #       album.save()
+  #       album2 = Album.new(:name =>"Blue", :id => nil)
+  #       album2.save()
+  #       album.delete()
+  #       expect(Album.all).to(eq([album2]))
+  #     end
+  #   end
+
+    describe('#delete_album') do
+  it("deletes all songs belonging to a deleted album") do
+    album = Album.new({:name => "A Love Supreme", :id => nil})
+    album.save()
+    artist = Artist.new({:name => "Beyonce", :id => nil})
+    song = Song.new({:name => "Naima", :album_id => album.id, :artist_id => artist.id,:id => nil})
+    song.save()
+    album.delete_album()
+    expect(Song.find(song.id)).to(eq(nil))
+  end
+end
 
   describe('#==') do
     it("is the same album if it has the same attributes as another album") do
@@ -83,9 +95,9 @@ describe('.clear') do
       it("returns an album's songs") do
         album = Album.new({:name =>"Giant Steps", :id => nil})
         album.save()
-        song = Song.new({:name =>"Naima", :id => nil, :album_id => nil, :artist_id => nil})
+        song = Song.new({:name =>"Naima", :id => nil, :album_id => album.id, :artist_id => nil})
         song.save()
-        song2 = Song.new({:name =>"SingSong Song", :id => nil, :album_id => nil, :artist_id => nil})
+        song2 = Song.new({:name =>"SingSong Song", :id => nil, :album_id => album.id, :artist_id => nil})
         song2.save()
         expect(album.songs).to(eq([song, song2]))
       end

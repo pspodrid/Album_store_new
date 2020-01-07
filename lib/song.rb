@@ -51,8 +51,9 @@ class Song
 
   def update(attributes)
     @name = attributes.fetch(:name)
-    @album_id = attributes.fetch(:album_id)
-    DB.exec("UPDATE songs SET name = '#{@name}', album_id = #{@album_id} WHERE id = #{@id};")
+    @album_id = attributes.fetch(:album_id).to_i
+    @artist_id = attributes.fetch(:artist_id).to_i
+    DB.exec("UPDATE songs SET name = '#{@name}', album_id = #{@album_id}, artist_id = #{@artist_id} WHERE id = #{@id};")
   end
 
   def delete
@@ -69,7 +70,8 @@ class Song
     returned_songs.each() do |song|
       name = song.fetch('name')
       id = song.fetch('id').to_i
-      songs.push(Song.new({:name => name, :artist_id => artist_id, :id => id}))
+      album_id = song.fetch('album_id').to_i
+      songs.push(Song.new({:name => name, :artist_id => artist_id, :id => id, :album_id => album_id}))
     end
     songs
   end

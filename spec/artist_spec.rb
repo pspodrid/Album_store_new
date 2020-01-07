@@ -64,30 +64,30 @@ end
     end
 
   describe('#==') do
-    it("is the same album if it has the same attributes as another album") do
-      album = Album.new(:name =>"Blue", :id => nil)
-      album2 = Album.new(name: "Blue", id: nil)##this is an alternate way to enter key-value pair
-      expect(album).to(eq(album2))
+    it("is the same artist if it has the same attributes as another artist") do
+      artist = Artist.new(:name =>"Beyonce", :id => nil)
+      artist2 = Artist.new(name: "Beyonce", id: nil)##this is an alternate way to enter key-value pair
+      expect(artist).to(eq(artist2))
     end
   end
 
   describe('.find') do
-      it("finds an album by id") do
-        album = Album.new(:name =>"Giant Steps", :id => nil)
-        album.save()
-        album2 = Album.new(:name =>"Blue", :id => nil)
-        album2.save()
-        expect(Album.find(album.id)).to(eq(album))
+      it("finds an artist by id") do
+        artist = Artist.new(:name =>"Giant Steps", :id => nil)
+        artist.save()
+        artist2 = Artist.new(:name =>"Blue", :id => nil)
+        artist2.save()
+        expect(Artist.find(artist.id)).to(eq(artist))
       end
     end
 
   describe('.search') do
-    it("finds the album by name") do
-      album = Album.new(:name =>"Blue", :id => nil)
-      album.save()
-      searchedAlbum = Album.search(:name)
-      foundAlbum = Album.new(:name => searchedAlbum.fetch('name'), :id =>  searchedAlbum.fetch('id'))
-      expect(foundAlbum).to(eq(album))
+    it("finds the artist by name") do
+      artist = Artist.new(:name =>"Blue", :id => nil)
+      artist.save()
+      searchedArtist = Artist.search(:name)
+      foundArtist = Artist.new(:name => searchedArtist.fetch('name'), :id =>  searchedArtist.fetch('id'))
+      expect(foundArtist).to(eq(artist))
     end
   end
 
@@ -95,9 +95,9 @@ end
       it("returns an album's songs") do
         album = Album.new(:name =>"Giant Steps", :id => nil)
         album.save()
-        song = Song.new(:name =>"Naima", :id => nil, :album_id => nil, :artist_id => nil)
+        song = Song.new(:name =>"Naima", :id => nil, :album_id => album.id, :artist_id => nil)
         song.save()
-        song2 = Song.new(:name =>"SingSong Song", :id => nil, :album_id => nil, :artist_id => nil)
+        song2 = Song.new(:name =>"SingSong Song", :id => nil, :album_id => album.id, :artist_id => nil)
         song2.save()
         expect(album.songs).to(eq([song, song2]))
       end
