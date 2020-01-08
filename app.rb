@@ -38,9 +38,8 @@ end
 
 post('/albums') do
   name = params[:album_name]
-  year = params[:year]
   artist = params[:artist_name]
-  album = Album.new(name, nil, year, artist)
+  album = Album.new({:name => name, :id => nil})
   album.save()
   @albums = Album.all()
   erb(:albums)
@@ -115,7 +114,7 @@ end
 
 post('/artists') do
   name = params[:artist_name]
-  artist = Artist.new(name, nil)
+  artist = Artist.new({:name => name, :id => nil})
   artist.save()
   @artist = Artist.all()
   erb(:artists)

@@ -1,6 +1,5 @@
 <h4>Album Name: <%= @album.name %></h4>
-<h5>Year: <%= @album.year %></h5>
-<h5>Artist Name: <%= @album.artist %></h5>
+<h4>Artist Name: <%= @artist.name %></h4>
 
 
 <h5>Album Songs</h5>
@@ -15,14 +14,18 @@
     <p>There are no songs listed for this album yet.</p>
   <% end %>
 
-<h4>Add a song:</h4>
+<h4>Update Album:</h4>
 
 <form action="/albums/<%= @album.id %>/songs" method="post">
   <div class="form-group">
     <label for="song_name">Song name</label>
     <input id="song_name" name="song_name" class="form-control" type="text">
   </div>
-  <button type="submit" class="btn">Add song</button>
+  <div class="form-group">
+    <label for="artist_name">Artist name</label>
+    <input id="artist_name" name="artist_name" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Update</button>
 </form>
 
 
